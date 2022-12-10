@@ -233,37 +233,37 @@ function Score({ person }) {
     - key를 지정하면, parent 컴포넌트 내에서 순서가 아니라, key 값을 이용해 컴포넌트를 식별하고 state를 연결한다.
       - 예시: 이 Score 컴포넌트는 “playerB”를 위한 컴포넌트이구나!
 
-      ```jsx
-      import { useState } from "react";
+    ```jsx
+    import { useState } from "react";
+    
+    export default function App() {
+      const [isPlayerA, setIsPlayerA] = useState(true);
       
-      export default function App() {
-        const [isPlayerA, setIsPlayerA] = useState(true);
-        
-        return (
-          <div>
-            {isPlayerA ? (
-              <Score key="playerA" person="playerA" />
-            ) : (
-              <Score key="playerB" person="playerB" />
-            )}
-            <button onClick={() => setIsPlayerA(prev => !prev)}>
-              next player
-            </button>
-          </div>
-        );
-      }
-      
-      function Score({ person }) {
-        const [score, setScore] = useState(0);
-      
-        return (
-          <div>
-            <h1>{person}'s score: {score}</h1>
-            <button onClick={() => setScore(s => s+1)}>+</button>
-          </div>
-        );
-      }
-      ```
+      return (
+        <div>
+          {isPlayerA ? (
+            <Score key="playerA" person="playerA" />
+          ) : (
+            <Score key="playerB" person="playerB" />
+          )}
+          <button onClick={() => setIsPlayerA(prev => !prev)}>
+            next player
+          </button>
+        </div>
+      );
+    }
+    
+    function Score({ person }) {
+      const [score, setScore] = useState(0);
+    
+      return (
+        <div>
+          <h1>{person}'s score: {score}</h1>
+          <button onClick={() => setScore(s => s+1)}>+</button>
+        </div>
+      );
+    }
+    ```
 
     - 동일한 위치에 동일한 Score컴포넌트가 위치한다.
       - 기존에는 `isPlayerA`가 `true`든 `false`든 Score 컴포넌트가 div(parent)의 첫 번째 자식이어서(=parent 내에서 위치), 렌더 간에 동일한 컴포넌트라고 판단했다.
